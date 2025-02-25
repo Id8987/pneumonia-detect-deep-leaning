@@ -1,0 +1,20 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-image {
+    max-width: 400px;
+    border: 2px solid #28a745;
+    border-radius: 10px;
+}
+
+.diagnosis-box {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #e8f5e9;
+}

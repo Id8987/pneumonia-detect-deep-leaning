@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h3 class="mb-4">Analysis Result</h3>
+
+                    <div class="diagnosis-box mb-4">
+                        <h4 class="text-success">Diagnosis: {{ diagnosis }}</h4>
+                        <p>Confidence: {{ confidence }}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="{{ url_for('static', filename='uploads/' + original) }}"
+                                 class="result-image"
+                                 alt="Original X-Ray">
+                            <p class="mt-2">Original Image</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="{{ url_for('static', filename='uploads/' + perturbed) }}"
+                                 class="result-image"
+                                 alt="Perturbed X-Ray">
+                            <p class="mt-2">Perturbed Image</p>
+                        </div>
+                    </div>
+
+                    <a href="/dashboard" class="btn btn-success mt-4">New Analysis</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron text-center bg-white mt-5">
+        <h1 class="display-4 text-success">PneumoScan</h1>
+        <p class="lead">Détection intelligente de pneumonie par radiographie thoracique</p>
+        <hr class="my-4">
+        <p>Utilisez l'intelligence artificielle pour une analyse rapide et précise de vos radiographies</p>
+        <div class="mt-4">
+            <a class="btn btn-success btn-lg mr-3" href="/login" role="button">Connexion</a>
+            <a class="btn btn-outline-success btn-lg" href="/register" role="button">Inscription</a>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-success">
+                <div class="card-body">
+                    <h5 class="card-title text-success">⚡ Analyse Rapide</h5>
+                    <p class="card-text">Résultats en quelques secondes grâce à notre modèle d'IA performant</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-success">
+                <div class="card-body">
+                    <h5 class="card-title text-success">🛡 Sécurité Garantie</h5>
+                    <p class="card-text">Vos données médicales sont cryptées et protégées conformément au RGPD</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-success">
+                <div class="card-body">
+                    <h5 class="card-title text-success">📈 Analyse Comparative</h5>
+                    <p class="card-text">Visualisation des résultats avec images originales et perturbées</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
