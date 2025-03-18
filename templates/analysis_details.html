@@ -27,6 +27,12 @@
                             <div class="card-header bg-light">
                                 <h5>Résultats</h5>
                             </div>
+                            <!--here-->
+                            {% if analysis.denoised %}
+                                <div class="alert alert-success mt-3">
+                                    <i class="fas fa-shield-alt"></i> Protection anti-bruit activée
+                                </div>
+                            {% endif %}
                             <div class="card-body">
                                 <ul class="list-group">
                                     <li class="list-group-item">

@@ -5,7 +5,12 @@
             <div class="card mb-4">
                 <div class="card-body text-center">
                     <h3 class="mb-4">Analysis Result</h3>
-
+                    <!-- here -->
+                    {% if analysis.denoised %}
+                        <div class="alert alert-success mt-3">
+                            <i class="fas fa-shield-alt"></i> Protection anti-bruit activée
+                        </div>
+                    {% endif %}
                     <div class="diagnosis-box mb-4">
                         <h4 class="text-success">Diagnosis: {{ diagnosis }}</h4>
                         <p>Confidence: {{ confidence }}</p>

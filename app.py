@@ -211,6 +211,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 import tensorflow as tf
+from flask_migrate import Migrate
 
 # Configuration de l'application
 app = Flask(__name__)
@@ -246,6 +247,7 @@ class AnalysisHistory(db.Model):
     confidence = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     feedback = db.relationship('UserFeedback', backref='analysis', uselist=False)
+    denoised=db.Column(db.Boolean, default=False)
 
 
 class UserFeedback(db.Model):
@@ -255,6 +257,15 @@ class UserFeedback(db.Model):
     comment = db.Column(db.Text)
     rating = db.Column(db.Integer)
 
+def denoise_image(image):
+    """Applique un débruitage non-local avec OpenCV"""
+    return cv2.fastNlMeansDenoisingColored(
+        src=image,
+        h=10,               # Paramètre de force du débruitage
+        hColor=10,
+        templateWindowSize=7,
+        searchWindowSize=21
+    )
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -354,6 +365,14 @@ def analyze():
 
     img = cv2.imread(filepath)
     img_processed = clahe_enhancement(img)
+    if 'denoise' in request.form:
+        img_processed = denoise_image(img_processed)
+        denoised_tag = "_denoised"
+    else:
+        denoised_tag=""
+    # filename = f"user_{current_user.id}_{denoised_tag}_{file.filename}"
+
+
     img_resized = cv2.resize(img_processed, (IMG_SIZE, IMG_SIZE)) / 255.0
 
     perturbed = create_perturbation(img_processed)
@@ -367,7 +386,8 @@ def analyze():
         user_id=current_user.id,
         filename=filename,
         result=diagnosis,
-        confidence=float(prediction)
+        confidence=float(prediction),
+        denoised=('denoise' in request.form)
     )
     db.session.add(new_analysis)
     db.session.commit()
@@ -377,7 +397,9 @@ def analyze():
                            perturbed=f"perturbed_{filename}",
                            diagnosis=diagnosis,
                            confidence=round(float(prediction), 2),
-                           analysis_id=new_analysis.id)
+                           analysis_id=new_analysis.id,
+                           analysis=new_analysis
+                           )
 
 @app.route('/analysis/<int:analysis_id>')
 @login_required
@@ -485,4 +507,6 @@ def submit_feedback():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+
+
     app.run(debug=True)

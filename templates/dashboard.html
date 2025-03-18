@@ -84,6 +84,14 @@
                         <input type="file" class="custom-file-input" name="file" id="customFile" required>
                         <label class="custom-file-label" for="customFile">Choisir une radiographie...</label>
                     </div>
+{#                   here we add a checkbox to enable the denoising feature #}
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="denoiseCheck" name="denoise">
+                        <label class="form-check-label text-success" for="denoiseCheck">
+                            <i class="fas fa-shield-alt"></i> Activer la protection anti-bruit
+                        </label>
+                        <small class="form-text text-muted">Améliore la qualité d'analyse (recommandé)</small>
+                    </div>
                     <button type="submit" class="btn btn-success btn-block">
                         <i class="fas fa-microscope"></i> Lancer l'analyse
                     </button>
