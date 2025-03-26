@@ -38,7 +38,7 @@
 ### Étapes
 ```bash
 # 1. Cloner le dépôt
-git clone https://github.com/votre-utilisateur/pneumoscan.git
+git clone https://lien-de-repos.git
 cd pneumoscan
 
 # 2. Créer l'environnement virtuel
@@ -49,25 +49,11 @@ venv\Scripts\activate     # Windows
 # 3. Installer les dépendances
 pip install -r requirements.txt
 
-# 4. Configurer l'environnement
-echo "SECRET_KEY=votre_cle_secrete" > .env
-echo "DATABASE_URL=sqlite:///database.db" >> .env
-
-# 5. Initialiser la base de données
-flask db init
-flask db migrate
-flask db upgrade
-
-# 6. Télécharger le dataset (depuis Kaggle)
-# Placer les images dans 'static/uploads'
-
-# 7. Lancer l'application
 flask run
 ```
 
 ## 🖥 Utilisation
 1. Inscrivez-vous avec vos identifiants
-
 2. Téléversez une radiographie thoracique
 
 3. Activez la protection anti-bruit si nécessaire
@@ -84,8 +70,6 @@ flask run
 
 
 ```python
-from tensorflow.keras.applications import VGG16
-
 base_model = VGG16(
 weights='imagenet',
 include_top=False,
@@ -93,22 +77,17 @@ input_shape=(224, 224, 3)
 )
 
 model = Sequential([
-base_model,
-GlobalAveragePooling2D(),
-Dense(256, activation='relu'),
-Dropout(0.5),
-Dense(1, activation='sigmoid')
+  base_model,
+  GlobalAveragePooling2D(),
+  Dense(256, activation='relu'),
+  Dropout(0.5),
+  Dense(1, activation='sigmoid')
 ])
 ```
 ### Caractéristiques :
 
 - Transfer Learning avec VGG16/EfficientNet
-
-- Fine-tuning des dernières couches
-
-- Early Stopping et Réduction dynamique du LR
-
-- Métriques : Accuracy, F1-Score, AUC-ROC
+- Métriques : Accuracy
 
 ## 🔧 Technologies Utilisées
 | Composant |	Technologies|
